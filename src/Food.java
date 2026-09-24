@@ -1,17 +1,10 @@
-
-public class Food extends Product{
+public class Food extends Product {
 
     private String expirationDate;
 
-    public Food(String productId, String productName, int productStock, double productPrice, String expirationDate) {
-        super(productId, productName, productStock, productPrice);
+    public Food(String productName, int productStock, double productPrice, String expirationDate) {
+        super(productName, productStock, productPrice);
         setExpirationDate(expirationDate);
-    }
-
-    @Override
-    public void showInfos() {
-        super.showInfos();
-        System.out.println("Son kullanma tarihi:" + getExpirationDate());
     }
 
 
@@ -19,11 +12,16 @@ public class Food extends Product{
         return this.expirationDate;
     }
 
-    public void setExpirationDate(String  expirationDate) {
-        if(expirationDate == null || expirationDate.trim().isEmpty()) {
-            System.out.println("Son kullanma tarihi boş bırakılamaz");
-        } else {
-            this.expirationDate = expirationDate;
+    public final void setExpirationDate(String expirationDate) {
+        if (expirationDate == null || expirationDate.trim().isEmpty()) {
+            throw new IllegalArgumentException("Son kullanma tarihi boş bırakılamaz");
         }
+
+        this.expirationDate = expirationDate;
+    }
+
+    @Override
+    public String toString() {
+        return commonInfo() + String.format(" | Son Kullanma Tarihi: %s", expirationDate);
     }
 }

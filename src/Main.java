@@ -1,26 +1,39 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Product shoppingCart[] = new Product[2];
+        List<Product> products = new ArrayList<>();
 
-        Electronics phone = new Electronics("T178934", "Redmi Note 12 Pro", 5, 1500.0, "Xiaomi", 12);
-        Food chickenBurger = new Food("H172436", "Spicy Chicken Burger", 10, 350.0, "30.06.2026");
+        try {
+            Electronics phone = new Electronics("Redmi Note 12 Pro", 5, 1500.0, "Xiaomi", 12);
 
-        shoppingCart[0] = phone;
-        shoppingCart[1] = chickenBurger;
+            products.add(phone);
+            phone.sell(2);
 
-        double totalAmount = 0;
-
-        System.out.println("---------- Sepet detayları ----------");
-        for(Product p : shoppingCart) {
-            p.showInfos();
-            totalAmount += p.getProductPrice();
-            System.out.println("----------------------------");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
 
-        System.out.println("Sepet toplam tutarı:" + totalAmount + " TL");
+        try {
+            Food chickenBurger = new Food("Spicy Chicken Burger", 10, 350.0, "30.06.2027");
+            products.add(chickenBurger);
+            chickenBurger.sell(12);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+
+
+
+        System.out.println("---------- Ürün detayları ----------");
+        for (Product p : products) {
+            System.out.println(p);
+            System.out.println("----------------------------");
+        }
 
 
 
