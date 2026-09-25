@@ -1,5 +1,5 @@
+import java.security.SecureRandom;
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 
 public abstract class Product {
@@ -9,7 +9,8 @@ public abstract class Product {
     private int productStock;
     private double productPrice;
     private static final Set<String> usedIds = new HashSet<>();
-    private static final Random random = new Random();
+    private static final SecureRandom random = new SecureRandom();
+    private static final String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 
     public Product(String productName, int productStock, double productPrice) {
@@ -24,10 +25,12 @@ public abstract class Product {
         do {
             StringBuilder sb = new StringBuilder();
             for(int i = 0; i < 11; i++) {
-                sb.append(random.nextInt(10));
+                int index = random.nextInt(characters.length());
+                sb.append(characters.charAt(index));
             }
 
             id = sb.toString();
+
         } while (usedIds.contains(id));
         usedIds.add(id);
         return id;
